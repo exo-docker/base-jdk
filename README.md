@@ -2,19 +2,21 @@
 
 Docker Container used as based images
 
-## Ubuntu + Oracle jdk-7
+## Ubuntu + Oracle jdk 1.7
 
 * Ubuntu 14.04
 * Oracle JDK 7 update 79
 
 ```
-docker run -ti exoplatform/base-jdk:7u79 bash
+# Go inside the container
+docker run -ti exoplatform/base-jdk:1.7 bash
 ```
-## Ubuntu + Oracle jdk-8
+## Ubuntu + Oracle jdk 1.8
 
 * Ubuntu 14.04
 * Oracle JDK 8 update 66
 
 ```
-docker run -ti exoplatform/base-jdk:8u66 bash
+# Go inside the container
+docker run -ti exoplatform/base-jdk:1.8 bash
 ```

@@ -3,9 +3,9 @@
 #   - Ubuntu 14.04
 #   - Oracle JDK 8u66
 #
-# Build:    docker build -t exoplatform/base-jdk:8u66 .
+# Build:    docker build -t exoplatform/base-jdk:1.8 .
 #
-# Run:      docker run -ti exoplatform/base-jdk:8u66 bash
+# Run:      docker run -ti exoplatform/base-jdk:1.8 bash
 
 FROM       ubuntu:14.04
 MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>

@@ -3,9 +3,9 @@
 #   - Ubuntu 14.04
 #   - Oracle JDK 7u79
 #
-# Build:    docker build -t exoplatform/base-jdk:7u79 .
+# Build:    docker build -t exoplatform/base-jdk:1.7 .
 #
-# Run:      docker run -ti exoplatform/base-jdk:7u79 bash
+# Run:      docker run -ti exoplatform/base-jdk:1.7 bash
 
 FROM       ubuntu:14.04
 MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
