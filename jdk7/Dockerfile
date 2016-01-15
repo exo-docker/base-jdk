@@ -10,6 +10,15 @@
 FROM       ubuntu:14.04
 MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
 
+ENV JDK_VERSION_MAJOR 7
+ENV JDK_VERSION_UPDATE 79
+ENV JDK_VERSION_BUILD b14
+
+ENV JDK_VERSION ${JDK_VERSION_MAJOR}u${JDK_VERSION_UPDATE}
+ENV JDK_VERSION_DOT 1.${JDK_VERSION_MAJOR}.0
+ENV JDK_VERSION_DOT_UPDATE ${JDK_VERSION_DOT}_${JDK_VERSION_UPDATE}
+ENV JDK_DOWNLOAD http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}-${JDK_VERSION_BUILD}/jdk-${JDK_VERSION}-linux-x64.tar.gz
+
 # Install some useful or needed tools
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update && \
@@ -30,13 +39,14 @@ RUN echo "alias ll='ls -al --color'" > /etc/profile.d/aliases.sh
 ENV JVM_DIR /usr/lib/jvm
 RUN mkdir -p "${JVM_DIR}"
 
-#WORKDIR ${JVM_DIR}
-RUN wget -q --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" -O "${DOWNLOAD_DIR}/jdk-7u79-linux-x64.tar.gz" "http://download.oracle.com/otn-pub/java/jdk/7u79-b14/jdk-7u79-linux-x64.tar.gz" && \
+RUN wget -q --no-cookies --no-check-certificate \
+  --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+  -O "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" "${JDK_DOWNLOAD}" && \
   cd "${JVM_DIR}" && \
-  tar -xzf "${DOWNLOAD_DIR}/jdk-7u79-linux-x64.tar.gz" && \
-  rm -f "${DOWNLOAD_DIR}/jdk-7u79-linux-x64.tar.gz" && \
-  mv "${JVM_DIR}/jdk1.7.0_79" "${JVM_DIR}/java-1.7.0_79-oracle-x64" && \
-  ln -s "${JVM_DIR}/java-1.7.0_79-oracle-x64" "${JVM_DIR}/java-1.7.0-oracle-x64"
-ADD java-1.7.0-oracle-x64.jinfo ${JVM_DIR}/.java-1.7.0-oracle-x64.jinfo
-RUN cat "${JVM_DIR}/.java-1.7.0-oracle-x64.jinfo" | grep -E '^(jre|jdk|hl)' | awk '{print "/usr/bin/" $2 " " $2 " " $3 " 30 \n"}' | xargs -t -n4 sudo update-alternatives --install
-ENV JAVA_HOME ${JVM_DIR}/java-1.7.0-oracle-x64
+  tar -xzf "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" && \
+  rm -f "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" && \
+  mv "${JVM_DIR}/jdk${JDK_VERSION_DOT_UPDATE}" "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" && \
+  ln -s "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" "${JVM_DIR}/java-${JDK_VERSION_DOT}-oracle-x64"
+ADD java-${JDK_VERSION_DOT}-oracle-x64.jinfo ${JVM_DIR}/.java-${JDK_VERSION_DOT}-oracle-x64.jinfo
+RUN cat "${JVM_DIR}/.java-${JDK_VERSION_DOT}-oracle-x64.jinfo" | grep -E '^(jre|jdk|hl)' | awk '{print "/usr/bin/" $2 " " $2 " " $3 " 30 \n"}' | xargs -t -n4 sudo update-alternatives --install
+ENV JAVA_HOME ${JVM_DIR}/java-${JDK_VERSION_DOT}-oracle-x64
