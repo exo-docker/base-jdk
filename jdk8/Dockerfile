@@ -16,7 +16,8 @@ RUN apt-get -qq update && \
   apt-get -qq -y upgrade && \
   apt-get -qq -y install wget curl unzip htop && \
   apt-get -qq -y autoremove && \
-  apt-get -qq -y autoclean
+  apt-get -qq -y autoclean && \
+  rm -rf /var/lib/apt/lists/*
 
 # Create needed directories
 ENV DOWNLOAD_DIR /srv/downloads
