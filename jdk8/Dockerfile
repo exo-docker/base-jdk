@@ -3,9 +3,9 @@
 #   - Ubuntu 14.04
 #   - Oracle JDK 8u66
 #
-# Build:    docker build -t exoplatform/base-jdk:1.8 .
+# Build:    docker build -t exoplatform/base-jdk:jdk8 .
 #
-# Run:      docker run -ti exoplatform/base-jdk:1.8 bash
+# Run:      docker run -ti exoplatform/base-jdk:jdk8 bash
 
 FROM       ubuntu:14.04
 MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
@@ -21,11 +21,15 @@ ENV JDK_DOWNLOAD http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}-${JD
 
 # Install some useful or needed tools
 ENV DEBIAN_FRONTEND noninteractive
+# --force-confold: do not modify the current configuration file, the new version is installed with a .dpkg-dist suffix. With this option alone, even configuration
+#   files that you have not modified are left untouched. You need to combine it with
+# --force-confdef to let dpkg overwrite configuration files that you have not modified.
+ENV _APT_OPTIONS -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 RUN apt-get -qq update && \
-  apt-get -qq -y upgrade && \
-  apt-get -qq -y install wget curl unzip htop && \
+  apt-get -qq -y upgrade ${_APT_OPTIONS} && \
+  apt-get -qq -y install ${_APT_OPTIONS} wget curl unzip htop && \
   apt-get -qq -y autoremove && \
-  apt-get -qq -y autoclean && \
+  apt-get -qq -y clean && \
   rm -rf /var/lib/apt/lists/*
 
 # Create needed directories
@@ -35,7 +39,7 @@ RUN mkdir -p "${DOWNLOAD_DIR}"
 # Add some aliases
 RUN echo "alias ll='ls -al --color'" > /etc/profile.d/aliases.sh
 
-# Install Oracle Java 7 SDK
+# Install Oracle Java 8 SDK
 ENV JVM_DIR /usr/lib/jvm
 RUN mkdir -p "${JVM_DIR}"
 
