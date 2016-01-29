@@ -1,13 +1,13 @@
 # Dockerizing a base images with:
 #
 #   - Ubuntu 14.04
-#   - Oracle JDK 7u79
+#   - Oracle JDK 7
 #
 # Build:    docker build -t exoplatform/base-jdk:jdk7 .
 #
 # Run:      docker run -ti exoplatform/base-jdk:jdk7 bash
 
-FROM       ubuntu:14.04
+FROM       phusion/baseimage:0.9.18
 MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
 
 ENV JDK_VERSION_MAJOR 7
@@ -18,6 +18,9 @@ ENV JDK_VERSION ${JDK_VERSION_MAJOR}u${JDK_VERSION_UPDATE}
 ENV JDK_VERSION_DOT 1.${JDK_VERSION_MAJOR}.0
 ENV JDK_VERSION_DOT_UPDATE ${JDK_VERSION_DOT}_${JDK_VERSION_UPDATE}
 ENV JDK_DOWNLOAD http://download.oracle.com/otn-pub/java/jdk/${JDK_VERSION}-${JDK_VERSION_BUILD}/jdk-${JDK_VERSION}-linux-x64.tar.gz
+
+# Cleanup the base image from useless things
+RUN rm -rf /etc/service/sshd/
 
 # Install some useful or needed tools
 ENV DEBIAN_FRONTEND noninteractive
