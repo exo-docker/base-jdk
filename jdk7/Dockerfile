@@ -42,6 +42,10 @@ RUN mkdir -p "${DOWNLOAD_DIR}"
 # Add some aliases
 RUN echo "alias ll='ls -al --color'" > /etc/profile.d/aliases.sh
 
+# Configure htop for root user
+RUN mkdir -p /root/.config/htop/ && chmod -R 700 /root/.config/htop/
+ADD conf/htoprc.conf /root/.config/htop/htoprc
+
 # Install Oracle Java 7 SDK
 ENV JVM_DIR /usr/lib/jvm
 RUN mkdir -p "${JVM_DIR}"
