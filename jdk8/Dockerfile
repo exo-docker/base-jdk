@@ -8,7 +8,7 @@
 # Run:      docker run -ti exoplatform/base-jdk:jdk8 bash
 
 FROM       phusion/baseimage:0.9.18
-MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
+MAINTAINER eXo Platform <docker@exoplatform.com>
 
 ENV JDK_VERSION_MAJOR 8
 ENV JDK_VERSION_UPDATE 77
