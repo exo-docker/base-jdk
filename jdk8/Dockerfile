@@ -10,6 +10,8 @@
 FROM       phusion/baseimage:0.9.18
 MAINTAINER eXo Platform <docker@exoplatform.com>
 
+ENV TERM xterm
+
 ENV JDK_VERSION_MAJOR 8
 ENV JDK_VERSION_UPDATE 77
 ENV JDK_VERSION_BUILD b03
