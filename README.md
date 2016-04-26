@@ -7,7 +7,7 @@ Docker Container used as based images
 [![](https://badge.imagelayers.io/exoplatform/base-jdk:undefined.svg)](https://imagelayers.io/?images=exoplatform/base-jdk:jdk8 'Get your own badge on imagelayers.io')
 
 * Ubuntu 14.04
-* Oracle JDK 8 update 77
+* Oracle JDK 8 update 92
 
 ```
 # Go inside the container
