@@ -32,7 +32,12 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV _APT_OPTIONS -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
 RUN apt-get -qq update && \
   apt-get -qq -y upgrade ${_APT_OPTIONS} && \
-  apt-get -qq -y install ${_APT_OPTIONS} wget curl unzip htop && \
+  apt-get -qq -y install ${_APT_OPTIONS} \
+    wget \
+    curl \
+    expect \
+    htop \
+    unzip  && \
   apt-get -qq -y autoremove && \
   apt-get -qq -y clean && \
   rm -rf /var/lib/apt/lists/*
