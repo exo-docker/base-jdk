@@ -9,7 +9,7 @@ Docker Container used as based images
 [![ImageLayers Size](https://img.shields.io/imagelayers/image-size/exoplatform/base-jdk/jdk8.svg?maxAge=2592000)](https://hub.docker.com/r/exoplatform/base-jdk/)
 
 * Ubuntu 14.04
-* Oracle JDK 8 update 92
+* Oracle JDK 8 update 131
 
 ```
 # Go inside the container
