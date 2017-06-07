@@ -32,17 +32,17 @@ ENV DEBIAN_FRONTEND noninteractive
 #   files that you have not modified are left untouched. You need to combine it with
 # --force-confdef to let dpkg overwrite configuration files that you have not modified.
 ENV _APT_OPTIONS -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
-RUN apt-get -qq update && \
-  apt-get -qq -y upgrade ${_APT_OPTIONS} && \
-  apt-get -qq -y install ${_APT_OPTIONS} \
+RUN apt-get -qq update \
+  && apt-get -qq -y upgrade ${_APT_OPTIONS} \
+  && apt-get -qq -y install ${_APT_OPTIONS} \
     wget \
     curl \
     expect \
     htop \
-    unzip  && \
-  apt-get -qq -y autoremove && \
-  apt-get -qq -y clean && \
-  rm -rf /var/lib/apt/lists/*
+    unzip \
+  && apt-get -qq -y autoremove \
+  && apt-get -qq -y clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Create needed directories
 ENV DOWNLOAD_DIR /srv/downloads
@@ -61,12 +61,13 @@ RUN mkdir -p "${JVM_DIR}"
 
 RUN wget -q --no-cookies --no-check-certificate \
   --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
-  -O "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" "${JDK_DOWNLOAD}" && \
-  cd "${JVM_DIR}" && \
-  tar -xzf "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" && \
-  rm -f "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" && \
-  mv "${JVM_DIR}/jdk${JDK_VERSION_DOT_UPDATE}" "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" && \
-  ln -s "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" "${JVM_DIR}/java-${JDK_VERSION_DOT}-oracle-x64"
+  -O "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" "${JDK_DOWNLOAD}" \
+  && cd "${JVM_DIR}" \
+  && tar -xzf "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" \
+  && rm -f "${DOWNLOAD_DIR}/jdk-${JDK_VERSION}-linux-x64.tar.gz" \
+  && mv "${JVM_DIR}/jdk${JDK_VERSION_DOT_UPDATE}" "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" \
+  && ln -s "${JVM_DIR}/java-${JDK_VERSION_DOT_UPDATE}-oracle-x64" "${JVM_DIR}/java-${JDK_VERSION_DOT}-oracle-x64"
+
 ADD java-${JDK_VERSION_DOT}-oracle-x64.jinfo ${JVM_DIR}/.java-${JDK_VERSION_DOT}-oracle-x64.jinfo
 RUN cat "${JVM_DIR}/.java-${JDK_VERSION_DOT}-oracle-x64.jinfo" | grep -E '^(jre|jdk|hl)' | awk '{print "/usr/bin/" $2 " " $2 " " $3 " 30 \n"}' | xargs -t -n4 sudo update-alternatives --install
 ENV JAVA_HOME ${JVM_DIR}/java-${JDK_VERSION_DOT}-oracle-x64
