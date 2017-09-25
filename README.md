@@ -7,7 +7,7 @@ Docker Container used as based images
 ## Ubuntu + Oracle jdk 1.8
 
 * Ubuntu 14.04
-* Oracle JDK 8 update 131
+* Oracle JDK 8 update 144
 
 ```
 # Go inside the container
