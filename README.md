@@ -17,7 +17,7 @@ docker run -ti exoplatform/base-jdk:jdk8 bash
 ## Ubuntu + Oracle jdk 1.7
 
 * Ubuntu 14.04
-* Oracle JDK 7 update 79
+* Oracle JDK 7 update 80
 
 ```
 # Go inside the container
