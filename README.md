@@ -4,32 +4,18 @@
 
 Docker Container used as based images
 
-## Ubuntu + Oracle jdk 1.8
+|    Image                        |  JDK  | JDK detail                      | OS
+|---------------------------------|-------|----------------------------------------------------------
+|exoplatform/base-jdk:latest      |   8   | Oracle JDK 8 update 144         | Ubuntu 14.04
+|exoplatform/base-jdk:develop     |   8   | Oracle JDK 8 update 144         | Ubuntu 14.04
+|exoplatform/base-jdk:jdk9        |   9   | Oracle JDK 9.0.0 (build 9+181)  | Ubuntu 14.04
+|exoplatform/base-jdk:jdk8        |   8   | Oracle JDK 8 update 144         | Ubuntu 14.04
+|exoplatform/base-jdk:jdk7        |   7   | Oracle JDK 7 update 80          | Ubuntu 14.04
+|exoplatform/base-jdk:jdk6        |   6   | Oracle JDK 6 update 45          | Ubuntu 14.04
 
-* Ubuntu 14.04
-* Oracle JDK 8 update 144
+## usage
 
 ```
-# Go inside the container
+# To go inside a jdk8 container
 docker run -ti exoplatform/base-jdk:jdk8 bash
-```
-
-## Ubuntu + Oracle jdk 1.7
-
-* Ubuntu 14.04
-* Oracle JDK 7 update 80
-
-```
-# Go inside the container
-docker run -ti exoplatform/base-jdk:jdk7 bash
-```
-
-## Ubuntu + Oracle jdk 1.6
-
-* Ubuntu 14.04
-* Oracle JDK 6 update 45
-
-```
-# Go inside the container
-docker run -ti exoplatform/base-jdk:jdk6 bash
 ```
