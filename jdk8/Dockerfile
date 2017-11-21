@@ -7,8 +7,8 @@
 #
 # Run:      docker run -ti exoplatform/base-jdk:jdk8 bash
 
-FROM       phusion/baseimage:0.9.18
-MAINTAINER eXo Platform <docker@exoplatform.com>
+FROM  phusion/baseimage:0.9.18
+LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 ENV TERM xterm
 
